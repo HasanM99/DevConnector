@@ -1,7 +1,11 @@
+
 const express = require('express');
 const router = express.Router();
 const config = require('config');
 const axios = require('axios');
+
+
+
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 const checkObjectId = require('../../middleware/checkObjectId');
@@ -71,7 +75,7 @@ router.post(
       // normalize social fields to ensure valid url
       for (const [key, value] of Object.entries(socialFields)) {
         if (value && value.length > 0)
-          socialFields[key] = normalize(value, { forceHttps: true });
+          socialFields[key] = normalizeUrl(value, { forceHttps: true });
       }
       // add to profileFields
       profileFields.social = socialFields;
